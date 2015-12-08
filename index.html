@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Compile.net</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+function compile($output, topIndex) {
+	$output.animate({
+		top: '-=1080'
+	}, 4000, 'linear');
+	$output.promise().done(function() {
+		var $topDiv = $output.eq(topIndex);
+		topIndex += (topIndex == 2) ? -2 : 1;
+		$topDiv.css('top', parseInt($topDiv.css('top')) + 3240);
+		compile($output, topIndex);
+	});
+}
+$(document).ready(function() {
+	jQuery.fx.interval = 60;
+	var $terminal = $('#terminal');
+	$('.output').clone().appendTo($terminal).clone().appendTo($terminal);
+	compile($('.output'), 0);
+});
+</script>
+<style type="text/css">
+@import url(http://fonts.googleapis.com/css?family=Dosis|Cousine);
+body {
+	background: #222;
+}
+h1 {
+	position: absolute;
+	height: 48px;
+	margin-top: -24px;
+	top: 50%;
+	left: 0;
+	right: 0;
+	text-align: center;
+	font-family: Dosis, Verdana, Geneva, sans-serif;
+	font-size: 48px;
+	text-shadow: 1px 1px 1px #888;
+	color: #fff;
+}
+#terminal {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	z-index: -1;
+}
+.output {
+	position: relative;
+	height: 1080px;
+	white-space: pre;
+	font-family: Cousine, 'Courier New', Courier, monospace;
+	font-size: 15px;
+	line-height: 18px;
+	color: #333;
+}
+</style>
+</head>
+<body>
+<h1>Compile.net</h1>
+<div id="terminal">
+<div class="output">"../../miniperl" "-I../../lib" "-I../../lib" "../../lib/ExtUtils/xsubpp"  -typem
+ap "../../lib/ExtUtils/typemap" -typemap "typemap"  XSUB-redefined-macros.xs > X
+SUB-redefined-macros.xsc && mv XSUB-redefined-macros.xsc XSUB-redefined-macros.c
+cc -c   -fwrapv -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/includ
+e -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_FORTIFY_SOURCE=2 -Wno-deprecated
+-declarations -Wall -Werror=declaration-after-statement -Wextra -Wc++-compat -Ww
+rite-strings -O2   -DVERSION=\"0.72\" -DXS_VERSION=\"0.72\" -fPIC "-I../.."   XS
+UB-redefined-macros.c
+cc -c   -fwrapv -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/includ
+e -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_FORTIFY_SOURCE=2 -Wno-deprecated
+-declarations -Wall -Werror=declaration-after-statement -Wextra -Wc++-compat -Ww
+rite-strings -O2   -DVERSION=\"0.72\" -DXS_VERSION=\"0.72\" -fPIC "-I../.."   co
+re.c
+cc -c   -fwrapv -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/includ
+e -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_FORTIFY_SOURCE=2 -Wno-deprecated
+-declarations -Wall -Werror=declaration-after-statement -Wextra -Wc++-compat -Ww
+rite-strings -O2   -DVERSION=\"0.72\" -DXS_VERSION=\"0.72\" -fPIC "-I../.."   ex
+ception.c
+cc -c   -fwrapv -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/includ
+e -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_FORTIFY_SOURCE=2 -Wno-deprecated
+-declarations -Wall -Werror=declaration-after-statement -Wextra -Wc++-compat -Ww
+rite-strings -O2   -DVERSION=\"0.72\" -DXS_VERSION=\"0.72\" -fPIC "-I../.."   no
+tcore.c
+rm -f ../../lib/auto/XS/APItest/APItest.so
+cc  -shared -O2 -L/usr/local/lib -fstack-protector APItest.o XSUB-undef-XS_VERSI
+ON.o XSUB-redefined-macros.o core.o exception.o notcore.o  -o ../../lib/auto/XS/
+APItest/APItest.so 	\
+
+chmod 755 ../../lib/auto/XS/APItest/APItest.so
+/usr/local/src/perl-5.22.0/ext/XS-APItest/../../miniperl "-I../../lib" "-I../../
+lib" -MExtUtils::Command::MM -e 'cp_nonempty' -- APItest.bs ../../lib/auto/XS/AP
+Itest/APItest.bs 644
+./miniperl -Ilib make_ext.pl lib/auto/XS/Typemap/Typemap.so  MAKE="make" LIBPERL
+_A=libperl.a LINKTYPE=dynamic
+Generating a Unix-style Makefile
+Writing Makefile for XS::Typemap
+Running Mkbootstrap for XS::Typemap ()
+chmod 644 "Typemap.bs"
+cc -c   -fwrapv -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/includ
+e -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_FORTIFY_SOURCE=2 -Wall -Werror=d
+eclaration-after-statement -Wextra -Wc++-compat -Wwrite-strings -O2   -DVERSION=
+\"0.13\" -DXS_VERSION=\"0.13\" -fPIC "-I../.."   stdio.c
+"../../miniperl" "-I../../lib" "-I../../lib" "../../lib/ExtUtils/xsubpp"  -typem
+ap "../../lib/ExtUtils/typemap"  Typemap.xs > Typemap.xsc && mv Typemap.xsc Type
+map.c
+cc -c   -fwrapv -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/includ
+e -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_FORTIFY_SOURCE=2 -Wall -Werror=d
+eclaration-after-statement -Wextra -Wc++-compat -Wwrite-strings -O2   -DVERSION=
+\"0.13\" -DXS_VERSION=\"0.13\" -fPIC "-I../.."   Typemap.c
+rm -f ../../lib/auto/XS/Typemap/Typemap.so
+cc  -shared -O2 -L/usr/local/lib -fstack-protector stdio.o  Typemap.o  -o ../../
+lib/auto/XS/Typemap/Typemap.so 	\
+
+chmod 755 ../../lib/auto/XS/Typemap/Typemap.so
+/usr/local/src/perl-5.22.0/ext/XS-Typemap/../../miniperl "-I../../lib" "-I../../
+lib" -MExtUtils::Command::MM -e 'cp_nonempty' -- Typemap.bs ../../lib/auto/XS/Ty
+pemap/Typemap.bs 644
+./perl -Ilib -f pod/buildtoc -q
+./miniperl -Ilib -Ilib utils/Makefile.PL
+Extracting utils/Makefile (with variable substitutions)</div>
+</div>
+</body>
+</html>
